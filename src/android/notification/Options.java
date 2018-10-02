@@ -91,7 +91,7 @@ public final class Options {
      * @param context The application context.
      * @param options The options dict map.
      */
-    public Options(Context context, JSONObject options) {
+    Options(Context context, JSONObject options) {
         this.context = context;
         this.options = options;
         this.assets  = AssetUtil.getInstance(context);
@@ -197,13 +197,6 @@ public final class Options {
      */
     public boolean shallWakeUp() {
         return options.optBoolean("wakeup", true);
-    }
-
-    /**
-     * Gets the value for the timeout flag.
-     */
-    long getTimeout() {
-        return options.optLong("timeoutAfter");
     }
 
     /**
@@ -479,7 +472,7 @@ public final class Options {
     /**
      * Gets the notifications priority.
      */
-    int getPrio() {
+    int getPriority() {
         int prio = options.optInt("priority");
 
         return Math.min(Math.max(prio, PRIORITY_MIN), PRIORITY_MAX);
@@ -488,19 +481,8 @@ public final class Options {
     /**
      * If the notification shall show the when date.
      */
-    boolean showClock() {
-        Object clock = options.opt("clock");
-
-        return (clock instanceof Boolean) ? (Boolean) clock : true;
-    }
-
-    /**
-     * If the notification shall show the when date.
-     */
-    boolean showChronometer() {
-        Object clock = options.opt("clock");
-
-        return (clock instanceof String) && clock.equals("chronometer");
+    boolean getShowWhen() {
+        return options.optBoolean("showWhen", true);
     }
 
     /**

@@ -42,10 +42,12 @@ abstract public class AbstractClickReceiver extends Activity {
 
     /**
      * Called when local notification was clicked to launch the main intent.
+     *
+     * @param state Saved instance state
      */
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onCreate (Bundle state) {
+        super.onCreate(state);
 
         Intent intent      = getIntent();
         Bundle bundle      = intent.getExtras();
@@ -61,6 +63,15 @@ abstract public class AbstractClickReceiver extends Activity {
             return;
 
         onClick(toast, bundle);
+    }
+
+    /**
+     * Fixes "Unable to resume activity" error.
+     * Theme_NoDisplay: Activities finish themselves before being resumed.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
         finish();
     }
 
